@@ -1,0 +1,204 @@
+import javax.swing.*;
+import java.awt.*;
+import javax.swing.border.*; import java.awt.Color;
+import java.text.DateFormat; import java.text.SimpleDateFormat; import java.util.Date;
+public class Carro extends JFrame {
+
+    
+    JButton[][] boton = new JButton[18][5];
+    JButton[] vecBoton= new JButton[5];
+    private JLabel valorCaja, puestosvacios,horaActual;
+    private JTextField valorC, puestosV;
+    Date date = new Date();
+    Border border1 = BorderFactory.createLineBorder(Color.black, 1);
+
+    /**
+     * Constructor for objects of class Carro
+     */
+    public Carro()
+    {
+        super("Estacionamiento");
+        setLayout(new GridBagLayout());
+        GridBagConstraints restricciones1 = new GridBagConstraints();
+
+        Container contenedorPrincipal = this.getContentPane();
+        contenedorPrincipal.setLayout(new GridBagLayout());
+        contenedorPrincipal.setBackground(Color.lightGray);
+        
+        //panel 1
+        TitledBorder border = new TitledBorder("Parqueadero");
+        border.setTitleJustification(TitledBorder.CENTER);
+        border.setTitlePosition(TitledBorder.TOP);
+        JPanel panelParqueadero = new JPanel();
+        panelParqueadero.setBorder(border);
+        panelParqueadero.setLayout(new GridBagLayout());
+        
+        //Panel 2
+        JPanel panel2 = new JPanel();
+        panel2.setLayout(new GridBagLayout());
+        
+        //panel 2...Hora actual
+        TitledBorder border2 = new TitledBorder(" Hora actual ");
+        border2.setTitleJustification(TitledBorder.LEFT);
+        border2.setTitlePosition(TitledBorder.TOP);
+        JPanel panelHoraActual = new JPanel();
+        panelHoraActual.setBorder(border2);
+        panelHoraActual.setLayout(new GridBagLayout());
+        
+        //panel 3
+        TitledBorder border3 = new TitledBorder("Información");
+        border3.setTitleJustification(TitledBorder.CENTER);
+        border3.setTitlePosition(TitledBorder.TOP);
+        JPanel panelInformacion = new JPanel();
+        panelInformacion.setBorder(border3);
+        panelInformacion.setLayout(new GridBagLayout());
+        
+        //Poner botones para el primer panel
+        int n=0;
+        for(int fila = 0 ; fila < 18 ; fila++ ){
+             for(int columna = 0 ; columna < 5 ; columna++ ){
+                 
+                       
+                 boton[fila][columna] = new JButton(""+n);
+                 restricciones1.gridx=fila;
+                 restricciones1.gridy=columna;
+                 restricciones1.gridheight = 1;
+                 restricciones1.gridwidth = 1;
+                 restricciones1.weightx = 1;
+                 restricciones1.weighty = 1;
+                 restricciones1.fill = GridBagConstraints.BOTH;
+                 panelParqueadero.add(boton[fila][columna], restricciones1);
+                 n++;
+                       }
+                 }
+        
+        //Especificaciones del panel 1
+        restricciones1.gridx = 0;
+        restricciones1.gridy = 0;
+        restricciones1.gridheight = 1;
+        restricciones1.gridwidth = 1;
+        restricciones1.weightx = 1;
+        restricciones1.weighty = 1;
+        restricciones1.fill = GridBagConstraints.HORIZONTAL;
+        restricciones1.anchor = GridBagConstraints.NORTH;
+        //restricciones1.insets.set(0,0,1,0);
+        contenedorPrincipal.add(panelParqueadero, restricciones1);
+        
+        //Poner Hora Actual
+        DateFormat hourFormat = new SimpleDateFormat("HH:mm:ss");
+        horaActual = new JLabel("Hora: "+hourFormat.format(date));
+        restricciones1.gridx = 0;
+        restricciones1.gridy = 0;
+        restricciones1.gridheight = 1;
+        restricciones1.gridwidth = 1;
+        restricciones1.weightx = 1;
+        restricciones1.weighty = 1;
+        restricciones1.fill = GridBagConstraints.BOTH;
+        panelHoraActual.add(horaActual, restricciones1);
+        
+        //Poner especificaciones panel Hora Actual
+        restricciones1.gridx=1;
+        restricciones1.gridy=0;
+        restricciones1.gridheight = 1;
+        restricciones1.gridwidth = 2;
+        restricciones1.weightx = 1;
+        restricciones1.weighty = 1;
+        restricciones1.fill = GridBagConstraints.BOTH;
+        panel2.add(panelHoraActual, restricciones1);
+        
+        //Poner botones
+        String[] nomBotones = {"ingresar", "salir", "Avanzar", "Opcion1","Opcion2"};
+        for(int x=0;x<5;x++){
+            vecBoton[x]= new JButton(nomBotones[x]);
+            restricciones1.gridx=x;
+            restricciones1.gridy=1;
+            restricciones1.gridheight = 1;
+            restricciones1.gridwidth = 1;
+            restricciones1.weightx = 1;
+            restricciones1.weighty = 1;
+            restricciones1.insets.set(1,1,1,1);
+            restricciones1.fill = GridBagConstraints.BOTH;
+            panel2.add(vecBoton[x], restricciones1);
+        }
+        
+        //Especificaciones del panel 2
+        restricciones1.gridx = 0;
+        restricciones1.gridy = 1;
+        restricciones1.gridheight = 1;
+        restricciones1.gridwidth = 1;
+        restricciones1.weightx = 1;
+        restricciones1.weighty = 1;
+        restricciones1.fill = GridBagConstraints.HORIZONTAL;
+        restricciones1.anchor = GridBagConstraints.NORTH;
+        restricciones1.insets.set(0,0,2,0);
+        contenedorPrincipal.add(panel2, restricciones1);
+        
+        //Etiqueta y contenedor de valor caja
+        valorCaja = new JLabel("Valor en caja");
+        restricciones1.gridx=1;
+        restricciones1.gridy=0;
+        restricciones1.gridheight = 1;
+        restricciones1.gridwidth = 1;
+        restricciones1.weightx = 1;
+        restricciones1.weighty = 1;
+        restricciones1.insets.set(1,1,1,1);
+        restricciones1.fill = GridBagConstraints.BOTH;
+        panelInformacion.add(valorCaja, restricciones1);
+        
+        valorC = new JTextField();
+        restricciones1.gridx=2;
+        restricciones1.gridy=0;
+        restricciones1.gridheight = 1;
+        restricciones1.gridwidth = 1;
+        restricciones1.weightx = 1;
+        restricciones1.weighty = 1;
+        restricciones1.insets.set(1,1,1,1);
+        restricciones1.fill = GridBagConstraints.BOTH;
+        panelInformacion.add(valorC, restricciones1);
+        
+        //Etiqueta y contenedor de puestos vacios
+        puestosvacios = new JLabel("Valor en caja");
+        restricciones1.gridx=1;
+        restricciones1.gridy=1;
+        restricciones1.gridheight = 1;
+        restricciones1.gridwidth = 1;
+        restricciones1.weightx = 1;
+        restricciones1.weighty = 1;
+        restricciones1.insets.set(1,1,1,1);
+        restricciones1.fill = GridBagConstraints.BOTH;
+        panelInformacion.add(puestosvacios, restricciones1);
+        
+        puestosV = new JTextField();
+        restricciones1.gridx=2;
+        restricciones1.gridy=1;
+        restricciones1.gridheight = 1;
+        restricciones1.gridwidth = 1;
+        restricciones1.weightx = 1;
+        restricciones1.weighty = 1;
+        restricciones1.insets.set(1,1,1,1);
+        restricciones1.fill = GridBagConstraints.BOTH;
+        panelInformacion.add(puestosV, restricciones1);
+        
+        //Medidas Panel 3
+        restricciones1.gridx = 0;
+        restricciones1.gridy = 2;
+        restricciones1.gridheight = 1;
+        restricciones1.gridwidth = 1;
+        restricciones1.weightx = 1;
+        restricciones1.weighty = 1;
+        restricciones1.fill = GridBagConstraints.HORIZONTAL;
+        restricciones1.anchor = GridBagConstraints.NORTH;
+        restricciones1.insets.set(1,1,1,1);
+        contenedorPrincipal.add(panelInformacion, restricciones1);
+    }
+        public static void main(String[] args) {
+        // TODO Auto-generated method stub
+        Carro carrito = new Carro();
+        carrito.setSize(200,330);
+        carrito.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        carrito.pack();
+        carrito.setLocationRelativeTo(null);
+        carrito.setVisible(true);
+    }
+
+}
